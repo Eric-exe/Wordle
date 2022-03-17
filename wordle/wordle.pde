@@ -7,7 +7,6 @@ void setup() {
   
   size(500, 800);
   textAlign(CENTER, CENTER);
-  
 }
 
 boolean win = false;
@@ -35,7 +34,7 @@ void draw() {
   }
   
   // player failed, show answer
-  if (!gEngine.wordGuessed && gInterface.currentRow > 5 && !answerDisplayed) {
+  if (!gEngine.wordGuessed && gEngine.gameFinished && !answerDisplayed) {
     answerDisplayed = true;
     gEngine.gameFinished = true;
     gInterface.displayAnswer();
@@ -45,7 +44,7 @@ void draw() {
 
 
 void keyPressed() {
-  if (gInterface.currentRow >= 6 || gEngine.wordGuessed) {
+  if (gEngine.gameFinished) {
     return;
   }
   
@@ -90,8 +89,9 @@ void keyPressed() {
 
 void mousePressed() {
   gInterface.gKeyboard.pressed();
-  gInterface.newGamePressed();
   gInterface.button.pressed();
+  gInterface.newGamePressed();
+  gInterface.statsPressed();
 }
 
 void resetGame() {
@@ -106,5 +106,6 @@ void resetGame() {
   gInterface = new GameInterface();
   if (hardMode) {
     gInterface.button = new Toggle(12, 757, 50, 25, true);
+    gInterface.button.xButton++;
   }
 }

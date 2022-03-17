@@ -110,7 +110,7 @@ class GameInterface {
   float gradient = 0.0;
   String currentMsg;
   int textSize = 0;
-  
+  float boxSize = 0;
   // call this
   void message(String _msg) {
     msg = true;
@@ -118,11 +118,17 @@ class GameInterface {
     currentLifetime = 0;
     gradient = 0.0;
     textSize = 0;
+    boxSize = 0.0;
   }
   
   void message(String _msg, int _textSize) {
     message(_msg);
     textSize = _textSize;
+  }
+  
+  void message(String _msg, float _boxSize) {
+    message(_msg);
+    boxSize = _boxSize;
   }
   
   void displayMessage() {
@@ -138,7 +144,13 @@ class GameInterface {
         fill(lerpColor(color(255), color(20), gradient));
       }
     }
-    rect(175, 25, 150, 50, 6);
+    if (boxSize == 0.0) {
+      rect(175, 25, 150, 50, 6);
+    }
+    else {
+      rect((width - boxSize)/2, 25, boxSize, 50, 6);
+    }
+    
     fill(18, 18, 19);
     translate(250, 50);
     if (textSize != 0) {
@@ -247,11 +259,26 @@ class GameInterface {
   }
   
   void newGamePressed() {
-    if (mouseX > 350 && mouseX < 490 && mouseY > 750 && mouseY < 790) {
+    if (mouseX > 350 && mouseX < 490 && mouseY > 750 && mouseY < 790 && gEngine.gameFinished) {
       resetGame();
     }
   }
   
+  // stats button
+  void statsButton() {
+    fill(129, 131, 132);
+    noStroke();
+    rect(415, 10, 75, 30, 6);
+    fill(255);
+    text("Stats", 452.5, 21);
+  }
+  
+  boolean showStats = false;
+  void statsPressed() {
+    if (mouseX > 415 && mouseX < 490 && mouseY > 10 && mouseY < 40) {
+      showStats = !showStats;
+    }
+  }
   
   // show everything
   void displayInterface() {
@@ -272,6 +299,8 @@ class GameInterface {
     }
     
     newGameButton();
+    statsButton();
+    
     // show blocks
     for (int i = 0; i < 6; i++) {
       for (int j = 0; j < 5; j++) {
@@ -283,5 +312,10 @@ class GameInterface {
     button.display();
     textSize(16);
     text("Hard Mode", 105, 767); 
+    
+    if (showStats) {
+      gEngine.score.processScores();
+      gEngine.score.displayChart();
+    }
   }
 }

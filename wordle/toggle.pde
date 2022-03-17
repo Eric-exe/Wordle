@@ -44,7 +44,7 @@ class Toggle {
     if (anim) {
       if (!on) {
         xButton += 2;
-        if (xButton > x + w/2.0) {
+        if (xButton > x + w/2 - 1) {
           anim = false;
         }
       }
@@ -75,7 +75,7 @@ class Toggle {
         gEngine.hardMode = true;
       }
       else {
-        gInterface.message("Hard mode can only be toggled\n at the start of a round", 11);
+        gInterface.message("Hard mode can only be switched at the start of a round", 425.0);
       }
     }
   }

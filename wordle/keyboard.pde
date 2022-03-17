@@ -45,6 +45,10 @@ class GameKeyboard {
   }
 
   void pressed() {
+    if (gEngine.gameFinished) {
+      return;
+    }
+    
     for (int i = 0; i < letters.length(); i++) {
       if (letters.charAt(i) == '|') {
         continue;

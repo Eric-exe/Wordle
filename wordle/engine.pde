@@ -7,10 +7,12 @@ class GameEngine {
   boolean gameFinished = false;
   
   boolean hardMode = false;
+  
+  Score score;
 
   GameEngine() {
     allWords = new ArrayList<String>();
-
+    score = new Score();
     // read allWords.txt and store in ArrayList
     String[] data = loadStrings("allWords.txt");
     for (int i = 0; i < data.length; i++) {
@@ -84,8 +86,16 @@ class GameEngine {
       }
     }
     
-    if (wordGuessed) {
+    if (wordGuessed || gInterface.currentRow + 1 > 5) {
       gameFinished = true;
+      score.write();
+      if (!wordGuessed && gInterface.currentRow + 1 > 5) {
+        score.newScore(gInterface.currentRow + 1);
+      }
+      else {
+        score.newScore(gInterface.currentRow);
+      }
+      score.saveScores();
     }
     
     return results;
