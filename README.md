@@ -1,3 +1,5 @@
 # Wordle
 Wordle made in Processing with word lists <br/>
-Messy code!
+
+## Preview
+![](demo.gif)
