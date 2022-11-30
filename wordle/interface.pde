@@ -220,7 +220,9 @@ class GameInterface {
   void updateKeyboard() {
     if (!blocks[currentRow-1][4].anim2) {
       for (int i = 0; i < 5; i++) {
-        gKeyboard.keys.get(blocks[currentRow-1][i].c).buttonState = blocks[currentRow-1][i].blockColor;
+        if (gKeyboard.keys.get(blocks[currentRow-1][i].c).buttonState == -1 && blocks[currentRow-1][i].blockColor != 2) {
+          gKeyboard.keys.get(blocks[currentRow-1][i].c).buttonState = blocks[currentRow-1][i].blockColor;
+        }
       }
       keyboardUpdate = false;
     }

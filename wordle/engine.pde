@@ -24,7 +24,7 @@ class GameEngine {
     String[] possibleAnswers = loadStrings("sensibleWords.txt");
     answer = possibleAnswers[int((random(possibleAnswers.length)))];
     
-    println(answer);
+    // println(answer);
     
     // String to charArray for easier processing
     currentWord = new ArrayList<Character>();
